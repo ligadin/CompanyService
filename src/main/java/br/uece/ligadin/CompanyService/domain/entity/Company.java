@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Company {
-
     @Id
     @GeneratedValue
     private long id;
@@ -16,6 +15,14 @@ public class Company {
     @Column(nullable = false)
     private String website;
 
+    @Column
+    private String email;
+
+    @Column
+    private String size;
+
+    @Column
+    private String industry;
 
     public long getId() {
         return id;
@@ -40,4 +47,28 @@ public class Company {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
 }
