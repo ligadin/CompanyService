@@ -10,8 +10,12 @@ public class Company {
     @GeneratedValue
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = false)
+    private String website;
+
 
     public long getId() {
         return id;
@@ -29,4 +33,11 @@ public class Company {
         this.name = name;
     }
 
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 }

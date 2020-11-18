@@ -1,6 +1,7 @@
 package br.uece.ligadin.CompanyService.domain.service;
 
 import br.uece.ligadin.CompanyService.domain.entity.Company;
+import br.uece.ligadin.CompanyService.exception.CompanyEmptyOrNullException;
 import br.uece.ligadin.CompanyService.infrastructure.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,15 @@ public class CompanyService {
         return this.companyRepository.findById(id);
     }
 
-    public Company create(Company company) {
-        return this.companyRepository.save(company);
+	public Company create(Company company) {
+    	requiredNameCompany(company);
+    	requiredWebSiteCompany(company);
+    	return this.companyRepository.save(company);
     }
 
     public Optional<Company> update(long id, Company company) {
+    	requiredNameCompany(company);
+    	requiredWebSiteCompany(company);
         return this.companyRepository.findById(id)
                 .map(currentCompany -> {
                     company.setId(id);
@@ -45,6 +50,18 @@ public class CompanyService {
                     return Optional.of(company);
                 })
                 .orElse(Optional.empty());
+    }
+    
+    public void requiredNameCompany(Company company) {
+    	if(company.getName().isEmpty() || company.getName() == null) {
+    		throw new CompanyEmptyOrNullException("Company of Name been null or empty");
+    	} 
+    }
+    
+    public void requiredWebSiteCompany(Company company) {
+    	if(company.getWebsite().isEmpty() || company.getWebsite() == null) {
+    		throw new CompanyEmptyOrNullException("Company of Website been null or empty");	
+    	}
     }
 
 }
