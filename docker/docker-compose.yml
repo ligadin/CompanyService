@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+#Servidor do banco
+   postgres:
+    image: postgres
+    container_name: postgres-db
+    restart: always
+    environment:
+        POSTGRES_PASSWORD: SenhaPost2123
+    volumes:
+        - /postgres:/var/lib/postgresql/data
+
+#Servidor de interface para o banco
+   adminer:
+    image: adminer
+    restart: always
+    ports:
+       - 8080:8080
+
+#Servidor do Discovery Service Eureka
+   eureka-server:
+    image: springcloud/eureka
+    container_name: eureka-server
+    restart: always
+    ports:
+       - 8761:8761
+
+#Servidor do Api Gateway Zuul
+   zuul:
+    image: netflixoss/zuul:1.0.28
+    container_name: zuul
+    restart: always
+    ports:
+       - 8082:8082
+    volumes:
+        - /home/darcyfontenele/Documents/Projects/EESDO/Microsserviços/LigadIN/CompanyService/docker/zuul/config.properties:/tomcat/webapps/ROOT/WEB-INF/classes/config.properties
+        - /home/darcyfontenele/Documents/Projects/EESDO/Microsserviços/LigadIN/CompanyService/docker/zuul/zuul-test.properties:/tomcat/webapps/ROOT/WEB-INF/classes/zuul-test.properties
