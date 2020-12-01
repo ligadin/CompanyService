@@ -2,11 +2,13 @@ package br.uece.ligadin.CompanyService.domain.entity;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
-@Table
+@Table(name="company")
 public class Company {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private long id;
 
     @Column(nullable = false)
